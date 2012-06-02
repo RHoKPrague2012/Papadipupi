@@ -2,12 +2,14 @@ var app = {
     map: null,
     DEFAULT_LAT: 49.837982,
     DEFAULT_LNG: 15.458887,
+    DEFAULT_ZOOM: 8,
+    LOCATED_ZOOM: 12,
     MAP_ID: 'map-canvas',
     
     init: function() {
         var myOptions = {
             center: new google.maps.LatLng(app.DEFAULT_LAT, app.DEFAULT_LNG),
-            zoom: 8,
+            zoom: app.DEFAULT_ZOOM,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         app.map = new google.maps.Map(document.getElementById(app.MAP_ID), myOptions);
@@ -21,13 +23,13 @@ var app = {
             var browserSupportFlag = true;
             
             navigator.geolocation.getCurrentPosition(function(position) {
-                console.log(position);
                 var initialLocation = new google.maps.LatLng(
                         position.coords.latitude, 
                         position.coords.longitude
                     );
                 
                 app.map.setCenter(initialLocation);
+                app.map.setZoom(app.LOCATED_ZOOM);
                 
             }, function() {
                 handleNoGeolocation(browserSupportFlag);
