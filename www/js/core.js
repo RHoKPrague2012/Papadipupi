@@ -2,6 +2,7 @@ var app = {
     map: null,
     DEFAULT_LAT: 49.837982,
     DEFAULT_LNG: 15.458887,
+    MAP_ID: 'map-canvas',
     
     init: function() {
         var myOptions = {
@@ -9,10 +10,11 @@ var app = {
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        app.map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+        app.map = new google.maps.Map(document.getElementById(app.MAP_ID), myOptions);
         
         app.geolocation();
     },
+    
     geolocation: function() {
         // Try W3C Geolocation (Preferred)
         if (navigator.geolocation) {
@@ -37,6 +39,7 @@ var app = {
             handleNoGeolocation(browserSupportFlag);
         }
     },
+    
     handleNoGeolocation: function (errorFlag) {
         if (errorFlag == true) {
             alert('Geolocation service failed.');
