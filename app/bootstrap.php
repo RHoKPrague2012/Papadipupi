@@ -8,11 +8,6 @@ use Nette\Application\Routers\Route;
 // Load Nette Framework
 require LIBS_DIR . '/Nette/loader.php';
 
-use Nette\Diagnostics\Debugger;
-
-Debugger::enable();
-
-
 // Configure application
 $configurator = new Nette\Config\Configurator;
 
