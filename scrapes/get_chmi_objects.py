@@ -1,4 +1,5 @@
 import anyjson
+import csv
 import urllib2
 
 from lxml.html.soupparser import fromstring
@@ -11,7 +12,11 @@ def get_station(link):
 
     tree = fromstring(urllib2.urlopen(link).read().decode('cp1250'))
 
+    ident = CSSSelector("table tr:nth-child(1) td")(tree)[1].text
+
     STATIONS[tree.xpath("//table/tr[14]/td")[0].text] = {
+        'id' : ident,
+#        'name' : CSSSelector("table tr:nth-child(1) td")(tree)[0].text,
         'x' : tree.xpath("//table/tr[14]/td")[0].text,
         'y' : tree.xpath("//table/tr[15]/td")[0].text,
     }
@@ -26,14 +31,19 @@ def scrape():
         print "Retrieving station " + str(i)
         i += 1
         get_station(link.get("href"))
-        if i > 10:
-            break
 
 def store():
     f = open('stations.json', 'w')
     f.write(anyjson.serialize(STATIONS))
     f.close()
 
+
+    f = open('stations.csv', 'wb')
+    w = csv.writer(f)
+    for k in STATIONS:
+        row = STATIONS[k]
+        w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+    f.close()
 
 if __name__ == "__main__":
     scrape()

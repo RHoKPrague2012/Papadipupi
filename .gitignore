@@ -1,3 +1,4 @@
 #/temp
 /.idea
 /scrapes/venv
+/.openshift/
