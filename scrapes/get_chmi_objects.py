@@ -1,4 +1,5 @@
 import anyjson
+import csv
 import urllib2
 
 from lxml.html.soupparser import fromstring
@@ -11,14 +12,18 @@ def get_station(link):
 
     tree = fromstring(urllib2.urlopen(link).read().decode('cp1250'))
 
+    ident = CSSSelector("table tr:nth-child(1) td")(tree)[1].text
+
     STATIONS[tree.xpath("//table/tr[14]/td")[0].text] = {
+        'id' : ident,
+#        'name' : CSSSelector("table tr:nth-child(1) td")(tree)[0].text,
         'x' : tree.xpath("//table/tr[14]/td")[0].text,
         'y' : tree.xpath("//table/tr[15]/td")[0].text,
     }
 
 
 def scrape():
-    complete_url = "http://hydro.chmi.cz/isarrow/objects.php?ukol_p=1&vod_typ=R&nadmh_sign=%3E&rickm_sign=%3E&rok_od=2007&rok_do=2012&objekty_chemdata=1&matrice=2000868184&typodb=41&seq=364787&ordrstr=NM&agenda=POV&limit_clsf=&matrice_clsf=&tscon_clsf=&rok_od_clsf=&rok_do_clsf=&val_sign_clsf=&val_clsf=&agg_clsf=&startpos=0&recnum=2770"
+    complete_url = "http://hydro.chmi.cz/isarrow/objects.php?ukol_p=1&vod_typ=R&nadmh_sign=%3E&rickm_sign=%3E&rok_od=2007&rok_do=2012&objekty_chemdata=1&matrice=2000868184&typodb=41&seq=364787&ordrstr=NM&agenda=POV&limit_clsf=&matrice_clsf=&tscon_clsf=&rok_od_clsf=&rok_do_clsf=&val_sign_clsf=&val_clsf=&agg_clsf=&startpos=0&recnum=10"
     tree = fromstring(urllib2.urlopen(complete_url).read().decode('cp1250'))
     links = CSSSelector("table.tbl a")(tree)
     i = 1
@@ -34,6 +39,13 @@ def store():
     f.write(anyjson.serialize(STATIONS))
     f.close()
 
+
+    f = open('stations.csv', 'wb')
+    w = csv.writer(f)
+    for k in STATIONS:
+        row = STATIONS[k]
+        w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+    f.close()
 
 if __name__ == "__main__":
     scrape()
