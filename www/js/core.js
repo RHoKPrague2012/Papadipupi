@@ -1,10 +1,12 @@
 var app = {
-    map: null,
     DEFAULT_LAT: 49.837982,
     DEFAULT_LNG: 15.458887,
     DEFAULT_ZOOM: 8,
     LOCATED_ZOOM: 12,
     MAP_ID: 'map-canvas',
+    
+    map: null,
+    myLocation: null,
     
     init: function() {
         var myOptions = {
@@ -23,13 +25,15 @@ var app = {
             var browserSupportFlag = true;
             
             navigator.geolocation.getCurrentPosition(function(position) {
-                var initialLocation = new google.maps.LatLng(
+                app.myLocation = new google.maps.LatLng(
                         position.coords.latitude, 
                         position.coords.longitude
                     );
                 
-                app.map.setCenter(initialLocation);
+                app.map.setCenter(app.myLocation);
                 app.map.setZoom(app.LOCATED_ZOOM);
+                
+                app.viewMyLocation();
                 
             }, function() {
                 handleNoGeolocation(browserSupportFlag);
@@ -49,6 +53,14 @@ var app = {
             alert('Your browser doesn\'t support geolocation.');
         }
         map.setCenter(new google.maps.LatLng(app.DEFAULT_LAT, app.DEFAULT_LNG));
+    },
+    
+    viewMyLocation: function() {
+        var marker = new google.maps.Marker({
+            position: app.myLocation,
+            map: app.map,
+            title: 'I\'m here!'
+        });
     }
 };
 
