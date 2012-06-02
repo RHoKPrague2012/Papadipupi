@@ -68,7 +68,7 @@ var app = {
         var layer = new google.maps.FusionTablesLayer({
             query: {
                 select: 'lat',
-                from: '1Ghm80xH5iVf2Hhl82D2GD0X4lTEngI457i3skhg'
+                from: '1w7iYtCf_crnDQ3XnrihVHrAhUCObdLbx_VnDr5Q'
             }
         });
         
