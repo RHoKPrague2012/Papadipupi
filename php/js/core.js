@@ -17,6 +17,7 @@ var app = {
         app.map = new google.maps.Map(document.getElementById(app.MAP_ID), myOptions);
         
         app.geolocation();
+        app.showIcons();
     },
     
     geolocation: function() {
@@ -61,6 +62,17 @@ var app = {
             map: app.map,
             title: 'I\'m here!'
         });
+    },
+    
+    showIcons: function() {
+        var layer = new google.maps.FusionTablesLayer({
+            query: {
+                select: 'lat',
+                from: '1Ghm80xH5iVf2Hhl82D2GD0X4lTEngI457i3skhg'
+            }
+        });
+        
+        layer.setMap(app.map);
     }
 };
 
