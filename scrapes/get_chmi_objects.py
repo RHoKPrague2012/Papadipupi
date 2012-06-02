@@ -1,5 +1,6 @@
 import anyjson
 import csv
+from threading import Thread
 import urllib2
 
 from lxml.html.soupparser import fromstring
@@ -7,7 +8,7 @@ from lxml.cssselect import CSSSelector
 
 STATIONS = {}
 
-def get_station(link):
+def get_station(link, no):
     link = "http://hydro.chmi.cz/isarrow/" + link
 
     tree = fromstring(urllib2.urlopen(link).read().decode('cp1250'))
@@ -19,7 +20,10 @@ def get_station(link):
 #        'name' : CSSSelector("table tr:nth-child(1) td")(tree)[0].text,
         'x' : tree.xpath("//table/tr[14]/td")[0].text,
         'y' : tree.xpath("//table/tr[15]/td")[0].text,
+        'sequenceMagicNumber' : CSSSelector("input[name='seq']")(tree)[0].value,
     }
+
+    print 'retrieved station', no
 
 
 def scrape():
@@ -27,10 +31,16 @@ def scrape():
     tree = fromstring(urllib2.urlopen(complete_url).read().decode('cp1250'))
     links = CSSSelector("table.tbl a")(tree)
     i = 1
+    pool = []
     for link in links:
-        print "Retrieving station " + str(i)
+        print "Scheduling station " + str(i)
+        t = Thread(target=lambda: get_station(link.get("href"), i))
+        pool.append(t)
+        t.start()
         i += 1
-        get_station(link.get("href"))
+
+    for t in pool:
+        t.join()
 
 def store():
     f = open('stations.json', 'w')
@@ -42,7 +52,11 @@ def store():
     w = csv.writer(f)
     for k in STATIONS:
         row = STATIONS[k]
-        w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+        try:
+            w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+        except Exception, e:
+            print "Error while writing row", e
+
     f.close()
 
 if __name__ == "__main__":
