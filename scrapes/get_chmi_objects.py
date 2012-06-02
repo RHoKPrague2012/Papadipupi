@@ -46,7 +46,11 @@ def store():
     w = csv.writer(f)
     for k in STATIONS:
         row = STATIONS[k]
-        w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+        try:
+             w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+        except Exception, e:
+            print "Error while writing row" 
+    
     f.close()
 
 if __name__ == "__main__":
