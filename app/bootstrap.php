@@ -9,7 +9,10 @@ use Nette\Application\Routers\Route;
 require LIBS_DIR . '/Nette/loader.php';
 
 use Nette\Diagnostics\Debugger;
-Debugger::enable(Debugger::DEVELOPMENT);
+
+\Nette\Diagnostics\Debugger::fireLog('test');
+
+Debugger::enable(Debugger::PRODUCTION);
 
 // Configure application
 $configurator = new Nette\Config\Configurator;
