@@ -69,7 +69,12 @@ var app = {
             query: {
                 select: 'lat',
                 from: '1w7iYtCf_crnDQ3XnrihVHrAhUCObdLbx_VnDr5Q'
-            }
+            },
+            styles: [{
+                markerOptions: {
+                    iconName: 'gas_stations'
+                }
+            }]
         });
         
         layer.setMap(app.map);
