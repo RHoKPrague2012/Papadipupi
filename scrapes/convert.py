@@ -1,7 +1,7 @@
 import anyjson
 import csv
 import os
-from subprocess import check_call, PIPE
+from subprocess import check_call, PIPE, Popen
 
 def convert(file):
     with open(file) as f:
@@ -11,16 +11,18 @@ def convert(file):
         for i in STATIONS:
             w.write(STATIONS[i]['x'] + ' ' + STATIONS[i]['y'] + '\n')
 
-    converted = check_call(
+    p = Popen( 
         ["cs2cs", "-f", "%.10f", "+proj=krovak", "+ellps=bessel", "+nadgrids=czech", "+to", "+proj=longlat", "+datum=WGS84", "./tmp"],
         stdout=PIPE
     )
 
+    converted, stderr = p.communicate()
+
     os.remove('tmp')
 
-    for i in zip(STATIONS, converted):
-        STATIONS[i[0]]['wgs84-x'] = i[1]
-        STATIONS[i[0]]['wgs84-y'] = i[2]
+    for i in zip(STATIONS, converted.splitlines()):
+        STATIONS[i[0]]['wgs84-y'] = i[1].split()[0]
+        STATIONS[i[0]]['wgs84-x'] = i[1].split()[1]
 
     f = open('stations-converted.json', 'w')
     f.write(anyjson.serialize(STATIONS))
