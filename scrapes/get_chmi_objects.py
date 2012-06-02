@@ -12,14 +12,18 @@ def get_station(link):
 
     tree = fromstring(urllib2.urlopen(link).read().decode('cp1250'))
 
-    ident = CSSSelector("table tr:nth-child(1) td")(tree)[1].text
+    
+    try:
+        ident = CSSSelector("table tr:nth-child(1) td")(tree)[1].text
 
-    STATIONS[tree.xpath("//table/tr[14]/td")[0].text] = {
+        STATIONS[tree.xpath("//table/tr[14]/td")[0].text] = {
         'id' : ident,
 #        'name' : CSSSelector("table tr:nth-child(1) td")(tree)[0].text,
         'x' : tree.xpath("//table/tr[14]/td")[0].text,
         'y' : tree.xpath("//table/tr[15]/td")[0].text,
-    }
+        }
+    except:
+        print "Failed to retrieve station"
 
 
 def scrape():
