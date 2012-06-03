@@ -11,7 +11,7 @@ var app = {
     
     FUSION_TABLE_ID: '1w7iYtCf_crnDQ3XnrihVHrAhUCObdLbx_VnDr5Q',
     FUSION_TABLE_SELECT: 'lat',
-    FUSION_TABLE_ICON: 'placemark_square_highlight',
+    FUSION_TABLE_ICON: 'stop',
     
     AUTOCOMPLETE_MIN_LENGTH: 3,
     GEO_REGION: 'cs',
