@@ -4,8 +4,6 @@ $data = array();
 
 $xml = simplexml_load_file('reky.xml');
 
-//var_dump($xml);
-
 foreach ($xml->geometry as $geometry) {
 	$xmlat = $geometry->attributes();
 	$name = (string)$xmlat['name'];
@@ -16,8 +14,8 @@ foreach ($xml->geometry as $geometry) {
 	foreach ($geometry->linestring->point as $point) {
 		$attrs = $point->attributes();
 		$coords[] = array(
-			'lat' => (string)$attrs['x'],
-			'lng' => (string)$attrs['y']
+			'lat' => (string)$attrs['y'],
+			'lng' => (string)$attrs['x']
 		);
 		$river['coords'] = $coords;
 	}
