@@ -1,16 +1,5 @@
 <?php
 
-
-function get_modifier($value) {
-	$i = 1;
-	while ($value < 100) {
-		$i *= 10;
-		$value *= 10;
-	}
-
-	return $i;
-}
-
 $cnt = $argv[1];
 
 $limits = file_get_contents('limits.json');
@@ -20,30 +9,31 @@ $names = array();
 foreach ($limits as $name => $value) {
 	$names[] = $name;
 }
-echo join(',', $names);
+echo 'severity, over';
 echo "\n";
+
+$names_cnt = count($names);
 
 for ($i = 0; $i < $cnt; $i++) {
 
 	$over = array();
-	foreach ($limits as $name => $value) {
 
-		if (!empty($value)) {
-			$modifier = get_modifier($value);
-			$rnd = rand(0, 2 * $modifier * $value);
+	$severity = rand(0, 3);
+	echo $severity.',';
 
-			$val = $rnd/$modifier;
-			if ($val >= $value) {
-				$over[] = $name;
-			}
-
-			echo $val;
+	if ($severity > 1) {
+		$over_keys = array_rand($names, rand(1,3));
+		if (!is_array($over_keys)) {
+			$over_keys = array($over_keys);
 		}
 
-		echo ',';
+		foreach ($over_keys as $key) {
+			$over[$key] = $names[$key];
+		}
+
+		echo '"'.join(', ', $over).'"';
 	}
 
-	echo '"'.join(',', $over).'"';
 
 	echo "\n";
 }
