@@ -9,7 +9,8 @@ def convert(file):
 
     with open('tmp', 'w') as w:
         for i in STATIONS:
-            w.write(STATIONS[i]['x'] + ' ' + STATIONS[i]['y'] + '\n')
+            if STATIONS[i]['x'] and STATIONS[i]['y']:
+                w.write(STATIONS[i]['x'] + ' ' + STATIONS[i]['y'] + '\n')
 
     p = Popen( 
         ["cs2cs", "-f", "%.10f", "+proj=krovak", "+ellps=bessel", "+nadgrids=czech", "+to", "+proj=longlat", "+datum=WGS84", "./tmp"],
