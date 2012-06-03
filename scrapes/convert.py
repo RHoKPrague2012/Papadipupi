@@ -9,7 +9,8 @@ def convert(file):
 
     with open('tmp', 'w') as w:
         for i in STATIONS:
-            w.write(STATIONS[i]['x'] + ' ' + STATIONS[i]['y'] + '\n')
+            if STATIONS[i]['x'] and STATIONS[i]['y']:
+                w.write(STATIONS[i]['x'] + ' ' + STATIONS[i]['y'] + '\n')
 
     p = Popen( 
         ["cs2cs", "-f", "%.10f", "+proj=krovak", "+ellps=bessel", "+nadgrids=czech", "+to", "+proj=longlat", "+datum=WGS84", "./tmp"],
@@ -33,7 +34,8 @@ def convert(file):
     w = csv.writer(f)
     for k in STATIONS:
         row = STATIONS[k]
-        w.writerow([row['id'].encode('utf-8'), row['wgs84-x'].encode('utf-8'), row['wgs84-y'].encode('utf-8')])
+        if 'wgs84-x' in row and 'wgs84-y' in row:
+            w.writerow([row['id'].encode('utf-8'), row['wgs84-x'].encode('utf-8'), row['wgs84-y'].encode('utf-8')])
     f.close()
 
 if __name__ == "__main__":
