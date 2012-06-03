@@ -16,6 +16,25 @@ var app = {
     FUSION_TABLE_ICON_OK: 'go',
     FUSION_TABLE_ICON_NODATA: 'measle_grey',
     
+    INFO: {
+        NODATA: {
+            IMG: 'http://papa-dipupi.rhcloud.com/images/nodata.png',
+            TEXT: 'Omlouváme se, v současnosti nejsou k dispozici data pro danou oblast'
+        },
+        OK: {
+            IMG: 'http://papa-dipupi.rhcloud.com/images/ok.png',
+            TEXT: 'Voda v této oblasti je nezávadná'
+        },
+        WARNING: {
+            IMG: 'http://papa-dipupi.rhcloud.com/images/orange.png',
+            TEXT: 'Zvýšený výskyt potenciálně škodlivých látek'
+        },
+        BAD: {
+            IMG: 'http://papa-dipupi.rhcloud.com/images/red.png',
+            TEXT: 'Kontaminace dosahuje kritických hodnot!'
+        }
+    },
+    
     map: null,
     myLocation: null,
     
@@ -110,36 +129,36 @@ var app = {
         
         google.maps.event.addListener(layer, 'click', function(e) {
             var html = '<div class="googft-info-window">'+
-                '<img src="{sev_icon}">'+
-                '<p><strong>{description}</strong></p>'+
-                '</div>';
+                            '<img src="{sev_icon}">'+
+                            '<p><strong>{description}</strong></p>'+
+                        '</div>';
             
             if (e.row.severity.value === '0') {
                 infoWindow.setContent(
                     html
-                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/nodata.png')
-                        .replace('{description}', 'Omlouváme se, v současnosti nejsou k dispozici data pro danou oblast')
+                        .replace('{sev_icon}', app.INFO.NODATA.IMG)
+                        .replace('{description}', app.INFO.NODATA.TEXT)
                 );
             }
             if (e.row.severity.value === '1') {
                 infoWindow.setContent(
                     html
-                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/ok.png')
-                        .replace('{description}', 'Voda v této oblasti je nezávadná')
+                        .replace('{sev_icon}', app.INFO.OK.IMG)
+                        .replace('{description}', app.INFO.OK.TEXT)
                 );
             }
             if (e.row.severity.value === '2') {
                 infoWindow.setContent(
                     html
-                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/orange.png')
-                        .replace('{description}', 'Zvýšený výskyt potenciálně škodlivých látek')
+                        .replace('{sev_icon}', app.INFO.WARNING.IMG)
+                        .replace('{description}', app.INFO.WARNING.TEXT)
                 );
             }
             if (e.row.severity.value === '3') {
                 infoWindow.setContent(
                     html
-                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/red.png')
-                        .replace('{description}', 'Kontaminace dosahuje kritických hodnot!')
+                        .replace('{sev_icon}', app.INFO.WARNING.IMG)
+                        .replace('{description}', app.INFO.WARNING.TEXT)
                 );
             }
             
