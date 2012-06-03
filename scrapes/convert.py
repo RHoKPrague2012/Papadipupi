@@ -35,7 +35,7 @@ def convert(file):
     for k in STATIONS:
         row = STATIONS[k]
         if 'wgs84-x' in row and 'wgs84-y' in row:
-            w.writerow([row['id'].encode('utf-8'), row['wgs84-x'].encode('utf-8'), row['wgs84-y'].encode('utf-8')])
+            w.writerow([row['id'].encode('utf-8'), row['wgs84-x'].encode('utf-8'), row['wgs84-y'].encode('utf-8'), row['name'].encode('utf-8')])
     f.close()
 
 if __name__ == "__main__":
