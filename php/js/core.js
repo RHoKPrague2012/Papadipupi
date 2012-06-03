@@ -71,8 +71,8 @@ var app = {
                 from: '1w7iYtCf_crnDQ3XnrihVHrAhUCObdLbx_VnDr5Q'
             },
             styles: [{
-                markerImage: {
-                    url: 'http://papa-dipupi.rhcloud.com/images/orange.png'
+                markerOptions: {
+                    iconName: 'gas_stations'
                 }
             }]
         });
