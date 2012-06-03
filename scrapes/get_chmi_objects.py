@@ -31,7 +31,8 @@ def get_station(link):
 
 
 def scrape(start_year=2007, limit=2800):
-    complete_url = "http://hydro.chmi.cz/isarrow/objects.php?ukol_p=1&vod_typ=R&nadmh_sign=%3E&rickm_sign=%3E&rok_od=" + str(start_year) + "&rok_do=2012&objekty_chemdata=1&matrice=2000868184&typodb=41&seq=364924&ordrstr=NM&agenda=POV&limit_clsf=&matrice_clsf=&tscon_clsf=&rok_od_clsf=&rok_do_clsf=&val_sign_clsf=&val_clsf=&agg_clsf=&startpos=0&recnum=" + str(limit)
+#    complete_url = "http://hydro.chmi.cz/isarrow/objects.php?ukol_p=1&vod_typ=R&nadmh_sign=%3E&rickm_sign=%3E&rok_od=" + str(start_year) + "&rok_do=2012&objekty_chemdata=1&matrice=2000868184&typodb=41&seq=364924&ordrstr=NM&agenda=POV&limit_clsf=&matrice_clsf=&tscon_clsf=&rok_od_clsf=&rok_do_clsf=&val_sign_clsf=&val_clsf=&agg_clsf=&startpos=0&recnum=" + str(limit)
+    complete_url = "http://hydro.chmi.cz/isarrow/objects.php?agenda=POV&objekty_chemdata=&objekty_biodata=&taxon_tree=&id_objekt=&nm_objekt=&tok=&kraj=&okres=&oblast_povodi=&hlgp=&vodutv=&objectsgrp=&rok_od=" + str(start_year) + "&rok_do=2012&objekty_chemdata=1&vod_typ=R&rickm_sign=%3E&rickm=&nadmh_sign=%3E&nadmh=&matrice=2000868184&typodb=41&tscongrp=&tscon=&data_mez_stanovitelnosti=&data_od=&data_do=&taxon=&send=Vyhledat+profily+povrchov%FDch+vod&startpos=0&recnum=" + str(limit)
     print "scraping from uri " + complete_url
     tree = fromstring(urllib2.urlopen(complete_url).read().decode('cp1250'))
     links = CSSSelector("table.tbl a")(tree)
