@@ -31,5 +31,6 @@ input:focus {
 }
 .googft-info-window p{line-height:1.5em;color:#555;padding-top:5px;margin:0;}
 .googft-info-window img{float:left;margin-right:15px;}
+.googft-info-window p.over{font-size:13px;}
 
 #map-canvas { width: 100%; height: 100%;}
