@@ -1,3 +1,4 @@
+<xml>
 <geometry name="vltava">
     <linestring>
         <point x="14.474079" y="50.347964">
@@ -898,7 +899,7 @@
         </point>
     </linestring>
 </geometry>
-<geometry name="ohøe">
+<geometry name="ohï¿½e">
     <linestring>
         <point x="14.133141" y="50.529303">
         </point>
@@ -1564,7 +1565,7 @@
         </point>
     </linestring>
 </geometry>
-<geometry name='sázava'>
+<geometry name='sï¿½zava'>
     <linestring>
         <point x="13.390128" y="49.75363">
         </point>
@@ -3121,4 +3122,5 @@
         <point x="14.715078" y="50.172636">
         </point>
     </linestring>
-</geometry>
+</geometry>\
+</xml>
