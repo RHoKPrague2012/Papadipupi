@@ -54,7 +54,7 @@ def store():
     for k in STATIONS:
         row = STATIONS[k]
         try:
-            w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8')])
+            w.writerow([row['id'].encode('utf-8'), row['x'].encode('utf-8'), row['y'].encode('utf-8'), row['name'][0].encode('utf-8')])
         except:
             print "Error while writing row" 
     
