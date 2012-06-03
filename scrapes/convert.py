@@ -34,7 +34,7 @@ def convert(file):
     w = csv.writer(f)
     for k in STATIONS:
         row = STATIONS[k]
-        if row['wgs84-x'] and row['wgs84-y']:
+        if 'wgs84-x' in row and 'wgs84-y' in row:
             w.writerow([row['id'].encode('utf-8'), row['wgs84-x'].encode('utf-8'), row['wgs84-y'].encode('utf-8')])
     f.close()
 
