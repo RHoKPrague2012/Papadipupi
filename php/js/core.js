@@ -131,6 +131,7 @@ var app = {
             var html = '<div class="googft-info-window">'+
                             '<img src="{sev_icon}">'+
                             '<p><strong>{description}</strong></p>'+
+                            '{over}'+
                         '</div>';
             
             if (e.row.severity.value === '0') {
@@ -138,6 +139,7 @@ var app = {
                     html
                         .replace('{sev_icon}', app.INFO.NODATA.IMG)
                         .replace('{description}', app.INFO.NODATA.TEXT)
+                        .replace('{over}', '')
                 );
             }
             if (e.row.severity.value === '1') {
@@ -145,6 +147,7 @@ var app = {
                     html
                         .replace('{sev_icon}', app.INFO.OK.IMG)
                         .replace('{description}', app.INFO.OK.TEXT)
+                        .replace('{over}', '')
                 );
             }
             if (e.row.severity.value === '2') {
@@ -152,6 +155,7 @@ var app = {
                     html
                         .replace('{sev_icon}', app.INFO.WARNING.IMG)
                         .replace('{description}', app.INFO.WARNING.TEXT)
+                        .replace('{over}', '<p><strong>Zvýšená hladina naměřena u: </strong>' + e.row.over.value + '</p>')
                 );
             }
             if (e.row.severity.value === '3') {
@@ -159,6 +163,7 @@ var app = {
                     html
                         .replace('{sev_icon}', app.INFO.WARNING.IMG)
                         .replace('{description}', app.INFO.WARNING.TEXT)
+                        .replace('{over}', '<p><strong>Zvýšená hladina naměřena u: </strong>' + e.row.over.value + '</p>')
                 );
             }
             
