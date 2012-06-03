@@ -10,10 +10,8 @@ STATIONS = {}
 def get_station(link):
     link = "http://hydro.chmi.cz/isarrow/" + link
 
-    tree = fromstring(urllib2.urlopen(link).read().decode('cp1250'))
-
-    
     try:
+        tree = fromstring(urllib2.urlopen(link).read().decode('cp1250'))
         ident = CSSSelector("table tr:nth-child(1) td")(tree)[1].text
 
         STATIONS[tree.xpath("//table/tr[14]/td")[0].text] = {
