@@ -110,7 +110,7 @@ var app = {
         
         google.maps.event.addListener(layer, 'click', function(e) {
             var html = '<div class="googft-info-window">'+
-                '<img src="{sev_icon}"'+
+                '<img src="{sev_icon}">'+
                 '<p>{description}</p>'+
                 '</div>';
             
