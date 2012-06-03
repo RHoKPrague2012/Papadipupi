@@ -2,10 +2,11 @@ html { height: 100% }
 body { height: 100%; margin: 0; padding: 0; font: 15px/1.5 Helvetica, Arial, sans-serif; }
 
 header {
-    text-align: center;
+    background:#F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+    color: #333333;
     padding: 6px;
-    background: #333;
-    color: #eee;
+    text-align: center;
 }
 header input {
     margin: 0 6px;
