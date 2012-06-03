@@ -2,14 +2,30 @@
 <html>
     <head>
         <title>Papadipupi</title>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" href="{$basePath}/css/style.css" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="{$basePath}/css/formalize.css">
+        <link rel="stylesheet" href="{$basePath}/css/style.css">
+
+        <!-- For third-generation iPad with high-resolution Retina display: -->
+        <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+        <!-- For iPhone with high-resolution Retina display: -->
+        <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+        <!-- For first- and second-generation iPad: -->
+        <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+        <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+        <link rel="apple-touch-icon-precomposed" href="default-touch-icon.png">
     </head>
     <body>
+        <header>
+            <input type="search" id="search" placeholder="Hledat místo..." results=5 size="large">
+        </header>
+        
         <div id="map-canvas"></div>
         
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+        {*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>*}
+        <script src="{$basePath}/js/libs/jquery-1.7.2.min.js"></script>
+        <script src="{$basePath}/js/libs/jquery.formalize.min.js"></script>
         <script src="{$basePath}/js/core.js"></script>
     </body>
 </html>
