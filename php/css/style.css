@@ -9,11 +9,12 @@ header {
     font-size:16px;
     text-align: center;
 }
+header img{position:relative;top:4px;}
 header input[type="search"] {
-    margin: 0 6px;
-    padding: 3px 6px;
+    margin: 10px;
     font-size: 16px;
     width:50%;
+    padding-left:6px;
     border: 1px solid #ccc;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -28,5 +29,7 @@ input:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     outline: 0 none;
 }
+.googft-info-window p{line-height:1.5em;color:#555;padding-top:5px;margin:0;}
+.googft-info-window img{float:left;margin-right:15px;}
 
-#map-canvas { width: 100%; height: 100% }
+#map-canvas { width: 100%; height: 100%;}

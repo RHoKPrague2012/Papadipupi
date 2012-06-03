@@ -24,6 +24,7 @@ var app = {
         app.geolocation();
         app.showIcons();
         app.initSearch();
+        //app.showRivers();
     },
     
     initMap: function() {
@@ -71,19 +72,80 @@ var app = {
     },
     
     showIcons: function() {
+        var infoWindow = new google.maps.InfoWindow();
+        
         var layer = new google.maps.FusionTablesLayer({
             query: {
                 select: app.FUSION_TABLE_SELECT,
                 from: app.FUSION_TABLE_ID
             },
             styles: [{
+                where: 'severity = 0',
+                markerOptions: {
+                    iconName: app.FUSION_TABLE_ICON_NODATA
+                }
+            },
+            {
+                where: 'severity = 1',
+                markerOptions: {
+                    iconName: app.FUSION_TABLE_ICON_OK
+                }
+            },
+            {
+                where: 'severity = 2',
+                markerOptions: {
+                    iconName: app.FUSION_TABLE_ICON_WARNING
+                }
+            },
+            {
+                where: 'severity = 3',
                 markerOptions: {
                     iconName: app.FUSION_TABLE_ICON
                 }
-            }]
+            }],
+            suppressInfoWindows: true
         });
         
         layer.setMap(app.map);
+        
+        google.maps.event.addListener(layer, 'click', function(e) {
+            var html = '<div class="googft-info-window">'+
+                '<img src="{sev_icon}">'+
+                '<p><strong>{description}</strong></p>'+
+                '</div>';
+            
+            if (e.row.severity.value === '0') {
+                infoWindow.setContent(
+                    html
+                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/nodata.png')
+                        .replace('{description}', 'Omlouváme se, v současnosti nejsou k dispozici data pro danou oblast')
+                );
+            }
+            if (e.row.severity.value === '1') {
+                infoWindow.setContent(
+                    html
+                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/ok.png')
+                        .replace('{description}', 'Voda v této oblasti je nezávadná')
+                );
+            }
+            if (e.row.severity.value === '2') {
+                infoWindow.setContent(
+                    html
+                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/orange.png')
+                        .replace('{description}', 'Zvýšený výskyt potenciálně škodlivých látek')
+                );
+            }
+            if (e.row.severity.value === '3') {
+                infoWindow.setContent(
+                    html
+                        .replace('{sev_icon}', 'http://papa-dipupi.rhcloud.com/images/red.png')
+                        .replace('{description}', 'Kontaminace dosahuje kritických hodnot!')
+                );
+            }
+            
+            infoWindow.setPosition(e.latLng);
+            infoWindow.open(app.map);
+        });
     },
     
     initSearch: function() {
@@ -103,6 +165,30 @@ var app = {
             }
 
             marker.setPosition(place.geometry.location);
+        });
+    },
+    
+    showRivers: function() {
+        $.get('/data/rivers.json', function(data) {
+            $.each(data, function(i, river) {
+                if (i === 0 || i === 1) {
+                    var riverPath = [];
+
+                    $.each(river.coords, function(i, coords) {
+                        riverPath.push(
+                            new google.maps.LatLng(coords.lng, coords.lat)
+                        );
+                    });
+
+                    new google.maps.Polyline({
+                        path: riverPath,
+                        map: app.map,
+                        strokeColor: "#FF0000",
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                }
+            });
         });
     },
     
