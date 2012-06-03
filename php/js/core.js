@@ -24,6 +24,7 @@ var app = {
         app.geolocation();
         app.showIcons();
         app.initSearch();
+        app.showRivers();
     },
     
     initMap: function() {
@@ -103,6 +104,47 @@ var app = {
             }
 
             marker.setPosition(place.geometry.location);
+        });
+    },
+    
+    showRivers: function() {
+        var data = [
+            {
+                name: 'Vltava',
+                coords: [
+                    {
+                        lat: 49.364783,
+                        lng: 15.987343
+                    },
+                    {
+                        lat: 50.837982,
+                        lng: 16.458887
+                    },
+                    {
+                        lat: 48.837321,
+                        lng: 14.098763
+                    }
+                ]
+            }
+        ];
+        
+        $.each(data, function(i, river) {
+            var riverPath = [];
+            
+            $.each(river.coords, function(i, coords) {
+                riverPath.push(
+                    new google.maps.LatLng(coords.lat, coords.lng)
+                );
+            });
+            
+            var river = new google.maps.Polyline({
+                path: riverPath,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            
+            river.setMap(app.map);
         });
     },
     
