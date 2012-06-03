@@ -13,9 +13,6 @@ var app = {
     FUSION_TABLE_SELECT: 'lat',
     FUSION_TABLE_ICON: 'stop',
     
-    AUTOCOMPLETE_MIN_LENGTH: 3,
-    GEO_REGION: 'cs',
-    
     map: null,
     myLocation: null,
     
@@ -87,38 +84,22 @@ var app = {
     },
     
     initSearch: function() {
-        var geocoder = new google.maps.Geocoder(),
+        var input = document.getElementById('search'),
+            autocomplete = new google.maps.places.Autocomplete(input),
             marker = app.getMarker(app.SEARCH_COLOR);
+
+        autocomplete.bindTo('bounds', app.map);
         
-        $('#search').autocomplete({
-            minLength: app.AUTOCOMPLETE_MIN_LENGTH,
-            //This bit uses the geocoder to fetch address values
-            source: function(request, response) {
-                geocoder.geocode({
-                    'address': request.term,
-                    //'bounds': app.map.getBounds(),
-                    'region': app.GEO_REGION
-                }, function(results, status) {
-                    response($.map(results, function(item) {
-                        return {
-                            label:  item.formatted_address,
-                            value: item.formatted_address,
-                            city: item.address_components[0].long_name,
-                            latitude: item.geometry.location.lat(),
-                            longitude: item.geometry.location.lng()
-                        }
-                    }));
-                })
-            },
-            
-            //This bit is executed upon selection of an address
-            select: function(e, ui) {
-                var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-                
-                marker.setPosition(location);
-                app.map.setCenter(location);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (place.geometry.viewport) {
+                app.map.fitBounds(place.geometry.viewport);
+            } else {
+                app.map.setCenter(place.geometry.location);
                 app.map.setZoom(app.LOCATED_ZOOM);
             }
+
+            marker.setPosition(place.geometry.location);
         });
     },
     
