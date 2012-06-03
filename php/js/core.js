@@ -155,7 +155,7 @@ var app = {
                     html
                         .replace('{sev_icon}', app.INFO.WARNING.IMG)
                         .replace('{description}', app.INFO.WARNING.TEXT)
-                        .replace('{over}', '<p><strong>Zvýšená hladina naměřena u: </strong>' + e.row.over.value + '</p>')
+                        .replace('{over}', '<p class="over"><strong>Zvýšená hladina naměřena u: </strong>' + e.row.over.value + '</p>')
                 );
             }
             if (e.row.severity.value === '3') {
@@ -163,7 +163,7 @@ var app = {
                     html
                         .replace('{sev_icon}', app.INFO.WARNING.IMG)
                         .replace('{description}', app.INFO.WARNING.TEXT)
-                        .replace('{over}', '<p><strong>Zvýšená hladina naměřena u: </strong>' + e.row.over.value + '</p>')
+                        .replace('{over}', '<p class="over"><strong>Zvýšená hladina naměřena u: </strong>' + e.row.over.value + '</p>')
                 );
             }
             
