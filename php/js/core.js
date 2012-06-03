@@ -9,7 +9,7 @@ var app = {
     MY_LOCATION_COLOR: 'FE7569',
     SEARCH_COLOR: '6bbd1b',
     
-    FUSION_TABLE_ID: '1w7iYtCf_crnDQ3XnrihVHrAhUCObdLbx_VnDr5Q',
+    FUSION_TABLE_ID: '1Rgw4IrY4Zq2J4y2DGCJBLyzq6WoYzpYW0115sgU',
     FUSION_TABLE_SELECT: 'lat',
     FUSION_TABLE_ICON: 'stop',
     FUSION_TABLE_ICON_WARNING: 'pause',
