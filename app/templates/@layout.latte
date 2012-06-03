@@ -2,8 +2,9 @@
 <html>
     <head>
         <title>Papadipupi</title>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <link rel="stylesheet" href="{$basePath}/css/style.css" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="{$basePath}/css/style.css">
+        <link rel="stylesheet" href="{$basePath}/css/flick/jquery-ui-1.8.20.custom.css">
 
         <!-- For third-generation iPad with high-resolution Retina display: -->
         <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
@@ -15,10 +16,17 @@
         <link rel="apple-touch-icon-precomposed" href="default-touch-icon.png">
     </head>
     <body>
+        <header>
+            <label for="search">Vyhledávání</label>
+            <input type="search" id="search" placeholder="např.: Berounka">
+        </header>
+        
         <div id="map-canvas"></div>
         
         <script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        {*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>*}
+        <script src="{$basePath}/js/libs/jquery-1.7.2.min.js"></script>
+        <script src="{$basePath}/js/libs/jquery-ui-1.8.20.custom.min.js"></script>
         <script src="{$basePath}/js/core.js"></script>
     </body>
 </html>
