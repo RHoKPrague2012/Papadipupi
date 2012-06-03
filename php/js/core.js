@@ -111,7 +111,7 @@ var app = {
         google.maps.event.addListener(layer, 'click', function(e) {
             var html = '<div class="googft-info-window">'+
                 '<img src="{sev_icon}">'+
-                '<p>{description}</p>'+
+                '<p><strong>{description}</strong></p>'+
                 '</div>';
             
             if (e.row.severity.value === '0') {
