@@ -161,8 +161,8 @@ var app = {
             if (e.row.severity.value === '3') {
                 infoWindow.setContent(
                     html
-                        .replace('{sev_icon}', app.INFO.WARNING.IMG)
-                        .replace('{description}', app.INFO.WARNING.TEXT)
+                        .replace('{sev_icon}', app.INFO.BAD.IMG)
+                        .replace('{description}', app.INFO.BAD.TEXT)
                         .replace('{over}', '<p class="over"><strong>Škodlivé látky: </strong>' + e.row.over.value + '</p>')
                 );
             }
