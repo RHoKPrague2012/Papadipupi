@@ -9,7 +9,7 @@ header {
     font-size:16px;
     text-align: center;
 }
-header input {
+header input[type="search"] {
     margin: 0 6px;
     padding: 3px 6px;
     font-size: 16px;
